@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+
+/* -----------------------------------------
+   DESIGN TOKENS (EDITORIAL)
+------------------------------------------ */
+
+:root {
+  /* Colors */
+  --paper: #f4f1ec; /* warm off-white */
+  --paper-muted: #c5c2be;
+  --shirt: #5e6454; /* olive green */
+  --purp: #5a5464;
+
+  /* Light mode ink */
+  --ink: #1a1a1a; /* charcoal */
+  --ink-muted: #4f4f4f;
+  --ink-subtle: #7a7a7a;
+
+  /* Typography sizes (mirrors tailwind.config.js) */
+  --text-body-lg: 1.25rem;
+  --text-body: 1.05rem;
+  --text-meta: 0.8rem;
+}
+
+[data-theme='dark'] {
+  /* Dark mode — warm charcoal background */
+  --paper: #121212; /* not pure black */
+  --paper-muted: #292929;
+  --shirt: #aeb99b; /* light olive green */
+
+  /* Dark mode text — bone / parchment */
+  --ink: #e6e2dc; /* key change: NOT white */
+  --ink-muted: #c9c5be;
+  --ink-subtle: #9a968f;
+}
+
+:root {
+  --portrait-bg-light: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.02) 0%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+
+[data-theme='dark'] {
+  --portrait-bg-light: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.02) 0%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+
+/* -----------------------------------------
+   BASE TYPOGRAPHY
+------------------------------------------ */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply font-sans;
+    margin: 0;
+    font-size: var(--text-body);
+    line-height: 1.7;
+    color: var(--ink);
+    background-color: var(--paper);
+  }
+
+  p {
+    max-width: 42ch;
+    color: var(--ink-muted);
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    color: var(--shirt);
+  }
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+/* -----------------------------------------
+   SEMANTIC TYPOGRAPHY CLASSES
+------------------------------------------ */
+
+@layer utilities {
+  .body-lg {
+    font-size: var(--text-body-lg);
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    color: var(--ink-muted);
+  }
+
+  .meta,
+  .eyebrow {
+    font-size: var(--text-meta);
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-subtle);
+    margin-bottom: 0.75rem;
+  }
+
+  .serif {
+    @apply font-serif italic;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
