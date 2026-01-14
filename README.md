@@ -68,8 +68,23 @@ npm run preview
 
 ## Deployment
 
-This project is intended to be deployed as a static site.
-Deployment instructions are intentionally omitted here and documented separately to align with a shared infrastructure approach across projects.
+This site is deployed as a static application using AWS infrastructure.
+
+**Production domain:**
+
+- https://clayparnell.com
+- https://www.clayparnell.com
+
+**Hosting architecture:**
+
+- Amazon S3 (static asset storage)
+- Amazon CloudFront (CDN + HTTPS)
+- Route 53 (DNS)
+- ACM (TLS certificates)
+
+The portfolio is intentionally deployed separately from the featured application to mirror real-world separation between marketing surfaces and application environments.
+
+Detailed infrastructure and deployment documentation is maintained separately.
 
 ---
 
