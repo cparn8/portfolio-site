@@ -6,19 +6,19 @@
 
 :root {
   /* Colors */
-  --paper: #f4f1ec; /* warm off-white */
-  --paper-muted: #c5c2be;
-  --shirt: #5e6454; /* olive green */
+  --paper: #e1dfdd; /* warm off-white */
+  --paper-muted: #c9c7c6;
+  --shirt: #5a5f52; /* olive green */
   --purp: #5a5464;
 
   /* Light mode ink */
   --ink: #1a1a1a; /* charcoal */
-  --ink-muted: #4f4f4f;
-  --ink-subtle: #7a7a7a;
+  --ink-muted: #383838;
+  --ink-subtle: #5a5a5a;
 
   /* Typography sizes (mirrors tailwind.config.js) */
-  --text-body-lg: 1.25rem;
-  --text-body: 1.05rem;
+  --text-body-lg: 1.5rem;
+  --text-body: 1.2rem;
   --text-meta: 0.8rem;
 }
 
@@ -29,9 +29,9 @@
   --shirt: #aeb99b; /* light olive green */
 
   /* Dark mode text — bone / parchment */
-  --ink: #e6e2dc; /* key change: NOT white */
-  --ink-muted: #c9c5be;
-  --ink-subtle: #9a968f;
+  --ink: #e1dfdd; /* key change: NOT white */
+  --ink-muted: #d4d0ca;
+  --ink-subtle: #b9b5ac;
 }
 
 :root {
@@ -93,11 +93,27 @@
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
     color: var(--shirt);
+    transform: translateY(-1px);
+    transition: transform 0.15s ease;
   }
 }
 
 .muted {
   color: var(--ink-muted);
+}
+
+.ink {
+  color: var(--ink);
+}
+
+.topbar:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  color: var(--shirt);
+  cursor: pointer;
+  transform: translateY(-1px);
+  transition: transform 0.15s ease;
 }
 
 /* -----------------------------------------
@@ -135,5 +151,47 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .mobile-width {
+    justify-content: center !important;
+    text-align: center !important;
+    width: auto !important;
+    margin: auto !important;
+  }
+
+  .mobile-margin {
+    margin-top: 2rem !important;
+  }
+
+  .mobile-center {
+    text-align: center !important;
+  }
+
+  .mobile-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+}
+
+@media (max-width: 1260px) {
+  .hero-name {
+    font-size: clamp(2rem, 12vw, 2.85rem) !important;
+    transform: none !important;
+    position: static !important;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 1257px) {
+  .hero-photoone {
+    width: clamp(301.667px, 15.712vw, 301.667px) !important;
   }
 }

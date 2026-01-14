@@ -66,7 +66,7 @@ export default {
       colors: {
         ink: {
           DEFAULT: '#111111',
-          muted: '#4b4b4b',
+          muted: '#424242',
           subtle: '#7a7a7a',
         },
         paper: {
@@ -81,7 +81,7 @@ export default {
       */
       spacing: {
         section: 'clamp(5rem, 12vh, 9rem)',
-        gutter: 'clamp(1.5rem, 4vw, 3rem)',
+        gutter: 'clamp(1.5rem, 3.5vw, 4.2rem)',
         text: '42ch',
       },
     },

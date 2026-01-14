@@ -7,17 +7,26 @@ import itil from './assets/itil4.png';
 import proj from './assets/projplus.png';
 
 export default function App() {
-  const sectionGap = 'clamp(5rem, 12vh, 9rem)';
-  const gutter = 'px-[clamp(1.5rem,4vw,3rem)]';
+  const sectionGap = 'clamp(1.5rem, 5vh, 6rem)';
+  const gutter = 'px-[clamp(1.5rem,3.5vw,4.2rem)]';
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
+  });
 
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const email = 'your@email.com';
+  const [copied, setCopied] = useState(false);
+  const email = 'claytongparnell@gmail.com';
+  const copyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const portraitW = useMemo(() => 'clamp(210px, 22vw, 400px)', []);
+  const portraitW = useMemo(() => 'clamp(210px, 24vw, 470px)', []);
 
   return (
     <main>
@@ -29,19 +38,32 @@ export default function App() {
           justifyContent: 'space-between',
           alignItems: 'flex-start',
           paddingTop: '2.5rem',
+          animation: 'fadeIn 0.8s ease-out both',
         }}
       >
         {/* Identity */}
-        <div style={{ lineHeight: 1.25 }}>
-          <div style={{ fontWeight: 600 }}>Clayton Parnell</div>
-          <div style={{ opacity: 0.8 }}>Dallas, TX · Open to relocate</div>
+        <div
+          className='mobile-hide'
+          style={{ lineHeight: 1.25, fontSize: '1.3rem', fontWeight: 600 }}
+        >
+          <div>Dallas, TX · Open to relocate</div>
         </div>
 
         {/* Utilities */}
-        <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+        <div
+          className='mobile-center mobile-width'
+          style={{
+            display: 'flex',
+            gap: '0.35rem',
+            alignItems: 'center',
+            fontSize: '1.3rem',
+            fontWeight: 600,
+          }}
+        >
           <a href='https://github.com/cparn8' target='_blank' rel='noreferrer'>
             GitHub
           </a>
+          <span aria-hidden='true'>·</span>
           <a
             href='https://www.linkedin.com/in/clay-parnell-2b6ab9168/'
             target='_blank'
@@ -49,17 +71,19 @@ export default function App() {
           >
             LinkedIn
           </a>
+          <span aria-hidden='true'>·</span>
           <button
-            onClick={() => navigator.clipboard.writeText(email)}
-            style={{ opacity: 0.8 }}
+            className='topbar'
+            onClick={() => copyEmail()}
             aria-label='Copy email'
             title='Copy email'
           >
             Email
           </button>
+          <span aria-hidden='true'>·</span>
           <button
+            className='topbar'
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-            style={{ opacity: 0.7 }}
             aria-label='Toggle theme'
           >
             {theme === 'light' ? 'Dark' : 'Light'}
@@ -81,7 +105,7 @@ export default function App() {
         }}
       >
         <div
-          className='grid gap-12'
+          className='grid gap-12 mobile-stack'
           style={{
             gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 0.75fr)',
             animation: 'fadeIn 0.8s ease-out both',
@@ -92,7 +116,7 @@ export default function App() {
           <div>
             <h1
               style={{
-                fontSize: 'clamp(3.5rem, 6.5vw, 10rem)',
+                fontSize: 'clamp(3.5rem, 6.5vw, 7.8rem)',
                 lineHeight: '0.7',
                 letterSpacing: '-0.025em',
                 fontWeight: 600,
@@ -102,11 +126,13 @@ export default function App() {
             </h1>
 
             <h2
+              className='mobile-center mobile-margin'
               style={{
-                marginTop: '2rem',
-                fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)',
+                marginTop: '4.5rem',
+                fontSize: 'clamp(2.25rem, 2.92vw, 3.5rem)',
                 lineHeight: '1.1',
                 letterSpacing: '-0.02em',
+                fontWeight: 500,
               }}
             >
               Designing and building complex
@@ -115,8 +141,8 @@ export default function App() {
             </h2>
 
             <p
-              className='body-lg'
-              style={{ marginTop: '2.5rem', maxWidth: '54ch' }}
+              className='body-lg mobile-center mobile-margin'
+              style={{ marginTop: '4rem', maxWidth: '54ch' }}
             >
               I emphasize clear structure, scoped execution, and dependable
               delivery, ensuring requirements, constraints, and technical
@@ -133,6 +159,7 @@ export default function App() {
             }}
           >
             <div
+              className='hero-photo hero-photoone'
               style={{
                 position: 'relative',
                 width: portraitW,
@@ -166,12 +193,13 @@ export default function App() {
                   right: '100%' anchors the RIGHT EDGE of the name to the LEFT EDGE of the portrait.
                   This makes the name sit in the dead space LEFT of the photo instead of inside it. */}
               <div
+                className='hero-name hero-nameone'
                 style={{
                   position: 'absolute',
                   right: '100%',
                   bottom: 0,
                   transform: 'translate(0%, 25%)', // X controls attachment; Y controls “hang”
-                  fontSize: 'clamp(2.75rem, 6.5vw, 10rem)',
+                  fontSize: 'clamp(2.75rem, 6.5vw, 7.8rem)',
                   letterSpacing: '-0.025em',
                   fontWeight: 600,
                   whiteSpace: 'nowrap',
@@ -192,10 +220,16 @@ export default function App() {
             justifyContent: 'left',
             paddingBottom: 'clamp(1.5rem, 4vh, 3rem)',
             textAlign: 'left',
+            animation: 'fadeIn 0.8s ease-out both',
           }}
         >
-          <a
-            href='#project'
+          <button
+            className='topbar'
+            onClick={() => {
+              document
+                .getElementById('project')
+                ?.scrollIntoView({ behavior: 'smooth' });
+            }}
             style={{
               display: 'inline-flex',
               flexDirection: 'column',
@@ -224,7 +258,7 @@ export default function App() {
 
               <ArrowDown size={58} strokeWidth={2.6} aria-hidden='true' />
             </div>
-          </a>
+          </button>
         </div>
       </section>
 
@@ -235,23 +269,25 @@ export default function App() {
         className={gutter}
         id='project'
         style={{
-          scrollMarginTop: '6.5rem',
+          scrollMarginTop: '1rem',
+          animation: 'fadeIn 0.8s ease-out both',
         }}
       >
         <div
           style={{
-            maxWidth: '1100px',
+            maxWidth: '1600px',
             margin: '0 auto',
             textAlign: 'center',
           }}
         >
           <h2
             style={{
-              marginTop: '1.5rem',
-              fontSize: 'clamp(2.5rem, 4vw, 3.75rem)',
+              marginTop: 0,
+              fontSize: 'clamp(2.75rem, 6.5vw, 7.8rem)',
               lineHeight: '1.1',
               letterSpacing: '-0.02em',
               marginBottom: 0,
+              fontWeight: 600,
             }}
           >
             Clinical Scheduling Platform
@@ -272,12 +308,15 @@ export default function App() {
         >
           {/* Left column */}
           <div style={{ textAlign: 'left' }}>
-            <p className='body-lg' style={{ marginTop: 0, maxWidth: '56ch' }}>
+            <p
+              className='body-lg mobile-center'
+              style={{ marginTop: 0, maxWidth: '56ch' }}
+            >
               A production-oriented healthcare scheduling system designed to
-              handle real clinical workflows and operational reliability.
+              handle real clinical workflows with operational reliability.
             </p>
 
-            <div style={{ marginTop: '2.25rem' }}>
+            <div className='mobile-center' style={{ marginTop: '2.25rem' }}>
               <p className='meta' style={{ marginBottom: '0.5rem' }}>
                 Tech Stack
               </p>
@@ -288,10 +327,12 @@ export default function App() {
             </div>
 
             <a
-              href='#'
+              href='https://app.clayparnell.com'
+              target='_blank'
+              rel='noreferrer'
               style={{
                 margin: 0,
-                fontSize: 'clamp(2.25rem, 4vw, 3rem)',
+                fontSize: 'clamp(2.25rem, 4vw, 3.5rem)',
                 lineHeight: '1.05',
                 letterSpacing: '-0.02em',
                 textDecoration: 'none',
@@ -306,7 +347,7 @@ export default function App() {
                 }}
               >
                 View Project
-                <ArrowRight size={48} strokeWidth={2.0} aria-hidden='true' />
+                <ArrowRight size={58} strokeWidth={2.6} aria-hidden='true' />
               </div>
             </a>
           </div>
@@ -363,7 +404,7 @@ export default function App() {
         </div>
 
         {/* Education + certs: centered under the project section */}
-        <div style={{ height: 'clamp(3rem, 6vh, 4.5rem)' }} />
+        <div style={{ height: 'clamp(2rem, 12vh, 2.5rem)' }} />
 
         <div>
           <div
@@ -380,6 +421,7 @@ export default function App() {
               style={{
                 marginTop: 0,
                 maxWidth: '900px',
+                fontWeight: 'bold',
               }}
             >
               B.S. Software Engineering · Western Governors University · 2025
@@ -387,7 +429,7 @@ export default function App() {
           </div>
           <div
             style={{
-              marginTop: '2.5rem',
+              marginTop: '1rem',
               display: 'flex',
               gap: '1.25rem',
               justifyContent: 'center',
@@ -415,12 +457,15 @@ export default function App() {
         </div>
       </section>
 
-      <div style={{ height: 'clamp(3rem, 12vh, 2.5rem)' }} />
+      <div style={{ height: 'clamp(1rem, 12vh, 2.5rem)' }} />
 
       {/* CONTACT (hard-centered container) */}
       <section
         className={gutter}
-        style={{ paddingBottom: 'clamp(2rem, 12vh, 3rem)' }}
+        style={{
+          paddingBottom: 'clamp(1rem, 12vh, 1rem),',
+          animation: 'fadeIn 0.8s ease-out both',
+        }}
       >
         <div
           style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}
@@ -432,6 +477,7 @@ export default function App() {
               alignItems: 'center',
               width: 'auto',
               display: 'flex',
+              fontWeight: 550,
             }}
           >
             <p style={{ maxWidth: '900px' }}>
@@ -440,21 +486,22 @@ export default function App() {
           </div>
           <div
             style={{
-              marginTop: '1rem',
+              marginTop: '0.5rem',
+              marginBottom: '1.5rem',
               display: 'inline-flex',
               gap: '0.75rem',
               alignItems: 'center',
               justifyContent: 'center',
               flexWrap: 'wrap',
+              fontWeight: 550,
             }}
-            className='body-lg'
+            className='body-lg muted'
           >
-            <a href={`mailto:${email}`}>Email</a>
-            <span aria-hidden='true'>·</span>
             <a
               href='https://github.com/cparn8'
               target='_blank'
               rel='noreferrer'
+              className='topbar'
             >
               GitHub
             </a>
@@ -463,12 +510,42 @@ export default function App() {
               href='https://www.linkedin.com/in/clay-parnell-2b6ab9168/'
               target='_blank'
               rel='noreferrer'
+              className='topbar'
             >
               LinkedIn
             </a>
+            <span aria-hidden='true'>·</span>
+
+            <button
+              className='topbar'
+              onClick={() => copyEmail()}
+              aria-label='Copy email'
+              title='Copy email'
+            >
+              Email
+            </button>
           </div>
         </div>
       </section>
+      {copied && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '2rem',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            padding: '0.75rem 1.25rem',
+            background: 'var(--purp)',
+            color: 'white',
+            borderRadius: '999px',
+            fontSize: '0.85rem',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+            zIndex: 1000,
+          }}
+        >
+          Email copied to clipboard
+        </div>
+      )}
     </main>
   );
 }
