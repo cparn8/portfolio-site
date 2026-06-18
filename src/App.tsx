@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowDown, ArrowRight } from 'lucide-react';
+import { ArrowDown, ArrowRight, Moon, Sun } from 'lucide-react';
 
 import portrait from './assets/portfolio-photo.png';
 import aws from './assets/aws-ccp.png';
@@ -7,14 +7,22 @@ import itil from './assets/itil4.png';
 import proj from './assets/projplus.png';
 
 export default function App() {
-  const sectionGap = 'clamp(1.5rem, 5vh, 6rem)';
   const gutter = 'px-[clamp(1.5rem,3.5vw,4.2rem)]';
+
+  const githubUrl = 'https://github.com/cparn8';
+  const linkedinUrl = 'https://www.linkedin.com/in/clay-parnell-2b6ab9168/';
+
+  // Place these files in /public so Vite serves them from the site root.
+  const resumeUrl = '/Clayton_Parnell_Application_Specialist_Resume.pdf';
+  const caseStudyUrl = '/Clayton_Parnell_Application_Support_Case_Study.pdf';
+
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
   });
 
   const [copied, setCopied] = useState(false);
   const email = 'claytongparnell@gmail.com';
+
   const copyEmail = () => {
     navigator.clipboard.writeText(email);
     setCopied(true);
@@ -35,20 +43,12 @@ export default function App() {
         className={gutter}
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
           alignItems: 'flex-start',
           paddingTop: '2.5rem',
           animation: 'fadeIn 0.8s ease-out both',
         }}
       >
-        {/* Identity */}
-        <div
-          className='mobile-hide'
-          style={{ lineHeight: 1.25, fontSize: '1.3rem', fontWeight: 600 }}
-        >
-          <div>Dallas, TX · Open to relocate</div>
-        </div>
-
         {/* Utilities */}
         <div
           className='mobile-center mobile-width'
@@ -58,18 +58,20 @@ export default function App() {
             alignItems: 'center',
             fontSize: '1.3rem',
             fontWeight: 600,
+            flexWrap: 'wrap',
+            justifyContent: 'center',
           }}
         >
-          <a href='https://github.com/cparn8' target='_blank' rel='noreferrer'>
+          <a href={githubUrl} target='_blank' rel='noreferrer'>
             GitHub
           </a>
           <span aria-hidden='true'>·</span>
-          <a
-            href='https://www.linkedin.com/in/clay-parnell-2b6ab9168/'
-            target='_blank'
-            rel='noreferrer'
-          >
+          <a href={linkedinUrl} target='_blank' rel='noreferrer'>
             LinkedIn
+          </a>
+          <span aria-hidden='true'>·</span>
+          <a href={resumeUrl} target='_blank' rel='noreferrer'>
+            Resume
           </a>
           <span aria-hidden='true'>·</span>
           <button
@@ -84,16 +86,30 @@ export default function App() {
           <button
             className='topbar'
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-            aria-label='Toggle theme'
+            aria-label={
+              theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
+            }
+            title={
+              theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
+            }
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           >
-            {theme === 'light' ? 'Dark' : 'Light'}
+            {theme === 'light' ? (
+              <Moon size={35} strokeWidth={2.3} aria-hidden='true' />
+            ) : (
+              <Sun size={35} strokeWidth={2.3} aria-hidden='true' />
+            )}
           </button>
         </div>
       </header>
 
       <div style={{ height: 'clamp(3rem, 6vh, 5rem)' }} />
 
-      {/* HERO (includes the bottom teaser; no duplicate project header elsewhere) */}
+      {/* HERO */}
       <section
         className={gutter}
         style={{
@@ -116,41 +132,85 @@ export default function App() {
           <div>
             <h1
               style={{
-                fontSize: 'clamp(3.5rem, 6.5vw, 7.8rem)',
-                lineHeight: '0.7',
+                fontSize: 'clamp(3.5rem, 6.5vw, 7.1rem)',
+                lineHeight: '0.78',
                 letterSpacing: '-0.025em',
                 fontWeight: 600,
               }}
             >
-              Software Engineer
+              Application Specialist
             </h1>
 
             <h2
               className='mobile-center mobile-margin'
               style={{
                 marginTop: '4.5rem',
-                fontSize: 'clamp(2.25rem, 2.92vw, 3.5rem)',
+                fontSize: 'clamp(2.25rem, 2.92vw, 3rem)',
                 lineHeight: '1.1',
                 letterSpacing: '-0.02em',
                 fontWeight: 500,
               }}
             >
-              Designing and building complex
+              Software-trained support professional
               <br />
-              full-stack systems
+              focused on business systems, user workflows, and application
+              reliability
             </h2>
 
             <p
               className='body-lg mobile-center mobile-margin'
-              style={{ marginTop: '4rem', maxWidth: '54ch' }}
+              style={{ marginTop: '4rem', maxWidth: '56ch' }}
             >
-              I emphasize clear structure, scoped execution, and dependable
-              delivery, ensuring requirements, constraints, and technical
-              decisions stay aligned from planning through release.
+              I combine a Software Engineering background with hands-on IT
+              support experience across user troubleshooting, ticket workflows,
+              documentation, account and access issues, operational systems, and
+              production-like business applications.
             </p>
+
+            <div
+              className='mobile-center mobile-margin'
+              style={{
+                marginTop: '2.25rem',
+                display: 'flex',
+                gap: '0.75rem',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                fontWeight: 550,
+                fontSize: '1.3rem',
+              }}
+            >
+              <a
+                href={resumeUrl}
+                target='_blank'
+                rel='noreferrer'
+                className='topbar'
+              >
+                Resume
+              </a>
+              <span aria-hidden='true'>·</span>
+              <a
+                href={caseStudyUrl}
+                target='_blank'
+                rel='noreferrer'
+                className='topbar'
+              >
+                Case Study
+              </a>
+              <span aria-hidden='true'>·</span>
+              <button
+                className='topbar'
+                onClick={() => {
+                  document
+                    .getElementById('fit')
+                    ?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Role Fit
+              </button>
+            </div>
           </div>
 
-          {/* Right: Portrait + NAME ANCHORED TO BOTTOM-LEFT EDGE OF PHOTO (but placed to the left) */}
+          {/* Right: Portrait + NAME ANCHORED TO BOTTOM-LEFT EDGE OF PHOTO */}
           <div
             style={{
               display: 'flex',
@@ -191,15 +251,15 @@ export default function App() {
 
               {/* IMPORTANT:
                   right: '100%' anchors the RIGHT EDGE of the name to the LEFT EDGE of the portrait.
-                  This makes the name sit in the dead space LEFT of the photo instead of inside it. */}
+                  This keeps the name in the dead space left of the photo instead of inside it. */}
               <div
                 className='hero-name hero-nameone'
                 style={{
                   position: 'absolute',
                   right: '100%',
                   bottom: 0,
-                  transform: 'translate(0%, 25%)', // X controls attachment; Y controls “hang”
-                  fontSize: 'clamp(2.75rem, 6.5vw, 7.8rem)',
+                  transform: 'translate(0%, 25%)',
+                  fontSize: 'clamp(2.75rem, 6.5vw, 7.1rem)',
                   letterSpacing: '-0.025em',
                   fontWeight: 600,
                   whiteSpace: 'nowrap',
@@ -213,7 +273,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* PROJECT TEASER (bottom of hero; links to project section header) */}
+        {/* FIT TEASER */}
         <div
           style={{
             display: 'flex',
@@ -227,13 +287,13 @@ export default function App() {
             className='topbar'
             onClick={() => {
               document
-                .getElementById('project')
+                .getElementById('fit')
                 ?.scrollIntoView({ behavior: 'smooth' });
             }}
             style={{
               display: 'inline-flex',
               flexDirection: 'column',
-              alignItems: 'left',
+              alignItems: 'flex-start',
               gap: '0.75rem',
               textDecoration: 'none',
             }}
@@ -241,7 +301,7 @@ export default function App() {
             <div
               style={{
                 display: 'inline-flex',
-                alignItems: 'left',
+                alignItems: 'center',
                 gap: '0.5rem',
               }}
             >
@@ -253,21 +313,18 @@ export default function App() {
                   letterSpacing: '-0.02em',
                 }}
               >
-                Featured Project
+                How I Add Value
               </h2>
-
               <ArrowDown size={58} strokeWidth={2.6} aria-hidden='true' />
             </div>
           </button>
         </div>
       </section>
 
-      <div style={{ height: sectionGap }} />
-
-      {/* PROJECT DETAILS (single header only; no duplicates) */}
+      {/* ROLE FIT / CASE STUDY CTA */}
       <section
         className={gutter}
-        id='project'
+        id='fit'
         style={{
           scrollMarginTop: '1rem',
           animation: 'fadeIn 0.8s ease-out both',
@@ -283,14 +340,14 @@ export default function App() {
           <h2
             style={{
               marginTop: 0,
-              fontSize: 'clamp(2.75rem, 6.5vw, 7.8rem)',
+              fontSize: 'clamp(2.75rem, 6.5vw, 7.1rem)',
               lineHeight: '1.1',
               letterSpacing: '-0.02em',
               marginBottom: 0,
               fontWeight: 600,
             }}
           >
-            Clinical Scheduling Platform
+            Business Application Support
           </h2>
         </div>
 
@@ -312,27 +369,40 @@ export default function App() {
               className='body-lg mobile-center'
               style={{ marginTop: 0, maxWidth: '56ch' }}
             >
-              A production-oriented healthcare scheduling system designed to
-              handle real clinical workflows with operational reliability.
+              I am targeting roles that combine technical troubleshooting,
+              end-user support, workflow analysis, documentation, and ownership
+              of business-critical applications.
             </p>
 
-            <div className='mobile-center' style={{ marginTop: '2.25rem' }}>
+            <div className='mobile-center' style={{ marginTop: '1.5rem' }}>
               <p className='meta' style={{ marginBottom: '0.5rem' }}>
-                Tech Stack
+                Target Roles
               </p>
-              <p className='body-lg' style={{ marginTop: 0 }}>
-                React · TypeScript · Tailwind · Django REST · PostgreSQL ·
-                Docker · AWS
+              <p className='body-md' style={{ marginTop: 0 }}>
+                Application Specialist · Application Support Analyst · Business
+                Applications Support · Technical Support Analyst · SaaS/Product
+                Support · Implementation Support
+              </p>
+            </div>
+
+            <div className='mobile-center' style={{ marginTop: '1.5rem' }}>
+              <p className='meta' style={{ marginBottom: '0.5rem' }}>
+                Transferable Support Context
+              </p>
+              <p className='body-md' style={{ marginTop: 0 }}>
+                Service Management · User Support · Business Applications ·
+                Account/Access Workflows · Documentation · Asset/Endpoint
+                Support · REST APIs · PostgreSQL
               </p>
             </div>
 
             <a
-              href='https://app.clayparnell.com'
+              href={caseStudyUrl}
               target='_blank'
               rel='noreferrer'
               style={{
                 margin: 0,
-                fontSize: 'clamp(2.25rem, 4vw, 3.5rem)',
+                fontSize: 'clamp(2.25rem, 4vw, 3rem)',
                 lineHeight: '1.05',
                 letterSpacing: '-0.02em',
                 textDecoration: 'none',
@@ -343,16 +413,16 @@ export default function App() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '.5rem',
-                  marginTop: '2.25rem',
+                  marginTop: '1.25rem',
                 }}
               >
-                View Project
+                Read Case Study
                 <ArrowRight size={58} strokeWidth={2.6} aria-hidden='true' />
               </div>
             </a>
           </div>
 
-          {/* Right column: brief, project-impact bullets (not commit-message fixes) */}
+          {/* Right column */}
           <div style={{ textAlign: 'left' }}>
             <ul
               className='muted'
@@ -367,43 +437,52 @@ export default function App() {
             >
               <li>
                 <span style={{ fontWeight: 'bold' }}>
-                  Rules-driven scheduling engine
+                  Hands-on support experience
                 </span>{' '}
-                (overlaps, blocks, conflict detection).
+                triaging user issues, documenting requests, resolving technical
+                problems, and escalating system issues when appropriate.
               </li>
+
               <li>
                 <span style={{ fontWeight: 'bold' }}>
-                  Multi-entity scheduling architecture
+                  Business-application support mindset
                 </span>{' '}
-                supporting providers, locations, availability, and constraints
-                within a unified domain model.
+                across workflows, permissions, data visibility, validation
+                behavior, documentation, and user-impact analysis.
               </li>
+
               <li>
                 <span style={{ fontWeight: 'bold' }}>
-                  Scalable schedule retrieval and filtering
+                  User-centered troubleshooting
                 </span>{' '}
-                designed to support growth without compromising data
+                focused on reproducing issues, isolating likely causes,
+                documenting findings, and communicating clearly with
+                nontechnical users.
+              </li>
+
+              <li>
+                <span style={{ fontWeight: 'bold' }}>
+                  Software engineering foundation
+                </span>{' '}
+                in React, TypeScript, Django REST, PostgreSQL, REST APIs,
+                validation logic, authentication, and deployment-aware
+                troubleshooting.
+              </li>
+
+              <li>
+                <span style={{ fontWeight: 'bold' }}>
+                  Application support case study
+                </span>{' '}
+                documenting how I troubleshoot a full-stack healthcare
+                scheduling SaaS across appointment visibility, filters, API
+                responses, recurrence, business hours, conflicts, and data
                 consistency.
-              </li>
-              <li>
-                <span style={{ fontWeight: 'bold' }}>
-                  Strong permission boundaries
-                </span>{' '}
-                reinforced through role-aware logic, validation, and type-safe
-                frontend and backend enforcement.
-              </li>
-              <li>
-                <span style={{ fontWeight: 'bold' }}>
-                  Cloud-deployed backend and infrastructure
-                </span>{' '}
-                configured for production environments, including secure
-                runtime, networking, and service boundaries.
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Education + certs: centered under the project section */}
+        {/* Education + certs */}
         <div style={{ height: 'clamp(2rem, 12vh, 2.5rem)' }} />
 
         <div>
@@ -427,6 +506,7 @@ export default function App() {
               B.S. Software Engineering · Western Governors University · 2025
             </p>
           </div>
+
           <div
             style={{
               marginTop: '1rem',
@@ -443,11 +523,13 @@ export default function App() {
               alt='CompTIA Project+'
               style={{ height: '6rem', width: 'auto' }}
             />
+
             <img
               src={aws}
               alt='AWS Certified Cloud Practitioner'
               style={{ height: '6rem', width: 'auto' }}
             />
+
             <img
               src={itil}
               alt='ITIL 4 Foundation'
@@ -459,11 +541,11 @@ export default function App() {
 
       <div style={{ height: 'clamp(1rem, 12vh, 2.5rem)' }} />
 
-      {/* CONTACT (hard-centered container) */}
+      {/* CONTACT */}
       <section
         className={gutter}
         style={{
-          paddingBottom: 'clamp(1rem, 12vh, 1rem),',
+          paddingBottom: 'clamp(1rem, 12vh, 1rem)',
           animation: 'fadeIn 0.8s ease-out both',
         }}
       >
@@ -481,9 +563,10 @@ export default function App() {
             }}
           >
             <p style={{ maxWidth: '900px' }}>
-              Interested in learning more or discussing opportunities?
+              Interested in adding me to your team?
             </p>
           </div>
+
           <div
             style={{
               marginTop: '0.5rem',
@@ -498,7 +581,16 @@ export default function App() {
             className='body-lg muted'
           >
             <a
-              href='https://github.com/cparn8'
+              href={resumeUrl}
+              target='_blank'
+              rel='noreferrer'
+              className='topbar'
+            >
+              Resume
+            </a>
+            <span aria-hidden='true'>·</span>
+            <a
+              href={githubUrl}
               target='_blank'
               rel='noreferrer'
               className='topbar'
@@ -507,7 +599,7 @@ export default function App() {
             </a>
             <span aria-hidden='true'>·</span>
             <a
-              href='https://www.linkedin.com/in/clay-parnell-2b6ab9168/'
+              href={linkedinUrl}
               target='_blank'
               rel='noreferrer'
               className='topbar'
@@ -515,7 +607,6 @@ export default function App() {
               LinkedIn
             </a>
             <span aria-hidden='true'>·</span>
-
             <button
               className='topbar'
               onClick={() => copyEmail()}
@@ -527,6 +618,7 @@ export default function App() {
           </div>
         </div>
       </section>
+
       {copied && (
         <div
           style={{

@@ -128,6 +128,13 @@
     color: var(--ink-muted);
   }
 
+  .body-md {
+    font-size: var(--text-body);
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    color: var(--ink-muted);
+  }
+
   .meta,
   .eyebrow {
     font-size: var(--text-meta);
@@ -181,7 +188,7 @@
   }
 }
 
-@media (max-width: 1260px) {
+@media (max-width: 1843px) {
   .hero-name {
     font-size: clamp(2rem, 12vw, 2.85rem) !important;
     transform: none !important;
